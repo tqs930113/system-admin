@@ -1,0 +1,36 @@
+// 定义常量
+@htmlFontSize: 100px;
+@bodyFontSize: 16px;
+@white: #fdfefd;
+html {
+    height: 100%;
+    font-size: @htmlFontSize;
+    body {
+        height: 100%;
+        font-size: @bodyFontSize;
+        min-width: 900px;
+        overflow: scroll;
+        .header {
+            .el-dropdown {
+                // 设置下拉框样式
+                display: inline;
+                .el-dropdown-link {
+                    color: @white;
+                }
+            }
+        }
+        .wrap{
+            .layout {
+                // 设置router-view的布局
+                padding: 5px 20px;
+                nav {
+                    padding: 20px 0;
+                    i {
+                        padding-right: 5px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}

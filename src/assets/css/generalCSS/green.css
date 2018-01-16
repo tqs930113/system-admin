@@ -1,0 +1,25 @@
+body{
+    color: #2c3e50;
+}
+.header,.header-right .nav-items{
+    /* 设置头部的背景色和字体颜色 */
+    color:#fdfefd ;
+    background-color: #00a65a;
+}
+.header .logo,.header-right .nav-items .transition-box {
+    /* 设置头部logo和导航条按钮背景色 */
+    background-color: #008d4c;
+}
+.header .logo .menu-btn {
+    /* 设置头部logo块内打开aside的menu按钮的背景色 */
+    background-color: #06bd6b;
+}
+.header-right .nav-items .transition-box:hover{
+    /* 设置鼠标悬浮导航条按钮的背景色 */
+    background-color: #06bd6b;
+    cursor: pointer;
+}
+.aside{
+    /* 设置侧栏导航的颜色样式 */
+    color:#fdfefd ;
+}
