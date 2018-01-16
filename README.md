@@ -1,6 +1,6 @@
-# upms
+# system-admin
 
-> 用户权限管理系统
+> 后台管理系统模板
 
 ## Build Setup
 
