@@ -2,6 +2,22 @@
 @htmlFontSize: 100px;
 @bodyFontSize: 16px;
 @white: #fdfefd;
+@greenColor:#00a65a;
+// 修改插件颜色
+.login,.register{
+    .el-tabs__item:hover{
+        color: @greenColor;
+    }
+    .el-tabs__active-bar{
+        background-color: @greenColor;
+    }
+    .el-tabs__item.is-active {
+        color: @greenColor;
+    }
+    .el-input.is-active .el-input__inner, .el-input__inner:focus{
+        border-color:@greenColor;
+    }
+}
 html {
     height: 100%;
     font-size: @htmlFontSize;
@@ -10,6 +26,7 @@ html {
         font-size: @bodyFontSize;
         min-width: 900px;
         overflow: scroll;
+        color:#555;
         .header {
             .el-dropdown {
                 // 设置下拉框样式

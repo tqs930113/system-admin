@@ -142,7 +142,7 @@ export default {
     handleCommand (command) {
       switch (command) {
         case 'quit':
-          this.$router.push('login')
+          this.$router.push('/')
           break
         case 'fullScreen':
           this.launchFullscreen(document.documentElement)
