@@ -11,19 +11,27 @@
     <div class="header-right">
       <div class="wrap">
         <div class="navs-left">
-          <div @click="navNavItemsShow = !navNavItemsShow" class="nav-btn waves-btns">
+          <div @click="toggleNavStatus" class="nav-btn waves-btns" id="nav-btn">
             <i :class=" navNavItemsShow ? 'iconfont ' + navBtnIcons[1] : 'iconfont ' + navBtnIcons[0]"></i>
           </div>
-          <transition name="el-fade-in-linear">
-            <div v-show="navNavItemsShow" class="nav-items">
-              <template v-for="item in navItems">
-                <div  class="transition-box" :key='item.id'>
-                  <i v-if="item.icon.length > 0" :class="item.icon"></i>
-                  {{item.title}}
-                </div>
-              </template>
-            </div>
-          </transition>
+          <div  @click="slideLeft"  class="nav-prev bg-color nav-slide-hover" id="nav-prev">
+            <i class="iconfont icon-zuo"></i>
+          </div>
+          <div v-show="navNavItemsShow" class="nav-container" id="nav-container">
+            <transition name="el-fade-in-linear">
+              <div  class="nav-items" id="nav-items">
+                  <template v-for="item in navItems">
+                  <div  class="transition-box" :key='item.id'>
+                    <i v-if="item.icon.length > 0" :class="item.icon"></i>
+                    {{item.title}}
+                  </div>
+                  </template>
+              </div>
+            </transition>
+          </div>
+          <div  @click="slideRight" class="nav-next bg-color nav-slide-hover" id="nav-next">
+            <i class="iconfont icon-you"></i>
+          </div>
         </div>
         <div class="toolbar">
           <div class="wrap">
@@ -73,8 +81,25 @@
 <script >
 import jQuery from 'jquery'
 export default {
+  mounted () {
+    var that = this
+    window.onresize = function () {
+      // 窗口缩放调整nav的subResult的值
+      if (!that.timer) {
+        that.timer = true
+        setTimeout(function () {
+          that.getNavWidthOverVal()
+          that.timer = false
+        }, 500)
+      }
+    }
+  },
   data () {
     return {
+      // 存放navItems超出被隐藏部分的宽度值
+      subResult: 0,
+      // 存放缩放页面的计时器
+      timer: false,
       navNavItemsShow: false,
       navBtnIcons: ['icon-gengduo', 'icon-fanhui1'],
       // 标记当前aside菜单的打开状态
@@ -123,6 +148,55 @@ export default {
           this.launchFullscreen(document.documentElement)
           break
       }
+    },
+    toggleNavStatus () {
+      // 切换nav导航栏的显示状态
+      this.navNavItemsShow = !this.navNavItemsShow
+      this.getNavWidthOverVal()
+    },
+    getNavWidthOverVal () {
+      // 获取当前nav超出父容器的宽度
+      var navItems = jQuery('#nav-items')
+      var navContainer = jQuery('#nav-container')
+      var navPrev = jQuery('#nav-prev')
+      var navNext = jQuery('#nav-next')
+      setTimeout(() => {
+        this.subResult = navItems.width() - navContainer.width()
+        // 判断是否需要出现滑动条按钮
+        if (this.subResult > 0) {
+          navNext.css('display', 'block')
+        } else {
+          navPrev.css('display', 'none')
+          navNext.css('display', 'none')
+          navItems.css('left', 0)
+        }
+      }, 1)
+    },
+    slideLeft () {
+      // 往左滑动nav
+      var navPrev = jQuery('#nav-prev')
+      var navNext = jQuery('#nav-next')
+      var navItems = jQuery('#nav-items')
+      var speed = 10
+      var curLeft = parseInt(navItems.css('left'))
+      if (curLeft + speed > 0) {
+        navPrev.css('display', 'none')
+      }
+      navItems.css('left', curLeft + speed + 'px')
+      navNext.css('display', 'block')
+    },
+    slideRight () {
+      // 往右滑动nav
+      var navPrev = jQuery('#nav-prev')
+      var navNext = jQuery('#nav-next')
+      var navItems = jQuery('#nav-items')
+      var speed = 10
+      var curLeft = parseInt(navItems.css('left'))
+      if (Math.abs(curLeft - speed) > this.subResult) {
+        navNext.css('display', 'none')
+      }
+      navItems.css('left', curLeft - speed + 'px')
+      navPrev.css('display', 'block')
     },
     toggleMenuStatus () {
       // 改变侧边菜单的打开状态
@@ -201,30 +275,59 @@ export default {
       width: 75%;
       z-index: 2000;
       float: left;
+      overflow: hidden;
       position: relative;
       .nav-btn {
         #l-h-height(@commonHeight);
         width: @commonHeight;
         cursor: pointer;
-      }
-      .nav-items {
-        position: absolute;
-        #l-h-height(@commonHeight);
-        left: @commonHeight;
-        top: 0;
-        width: 88%;
-        overflow: hidden;
+        position: relative;
+        // left: 0;
+        z-index: 99999;
 
-        .transition-box {
+      }
+      .nav-prev{
+        position: absolute;
+        left: @commonHeight;
+        top:0;
+        z-index: 2000;
+        display: none;
+      }
+      .nav-next{
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2000;
+        display: none;
+      }
+      .nav-container{
+        position: absolute;
+        transition: all .5s;
+        #l-h-height(@commonHeight);
+        width: 80%;
+        left: @commonHeight;
+        top:0;
+        overflow: hidden;
+        .nav-items {
+          position: absolute;
+          transition: all .5s;
+          left: 0;
+          top: 0;
+          white-space: nowrap;
+          overflow:auto;
+          .transition-box {
+          // position: absolute;
           #l-h-height(@commonHeight);
           border-radius: 4px;
           text-align: center;
-          float: left;
+          display: inline-block;
           padding: @transitionBoxPadding;
           margin: @transitionBoxMargin;
 
           &:first-of-type {
             margin-left: 0px;
+          }
+        
           }
         }
       }

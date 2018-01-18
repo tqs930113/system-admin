@@ -19,6 +19,15 @@ body{
     background-color: #06bd6b;
     cursor: pointer;
 }
+.bg-color{
+    background-color: #00a65a;
+}
+.nav-slide-hover:hover{
+    /* 头部导航条滑动按钮hover时的样式 */
+    background-color: #06bd6b;
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0,0,0,.3)
+}
 .aside{
     /* 设置侧栏导航的颜色样式 */
     color:#fdfefd ;

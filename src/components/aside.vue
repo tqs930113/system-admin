@@ -79,10 +79,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-// .el-menu-vertical-demo:not(.el-menu--collapse) {
-//   width: 100%;
-//   min-height: 400px;
-// }
+// 修改element插件样式
 .el-menu {
   height: 100%;
   border-right-width: 0px;
@@ -96,6 +93,10 @@ export default {
   text-align: left;
   text-indent: 0.5em;
 }
+.el-submenu{
+  background-color:red !important;
+}
+
 .aside {
   position: absolute;
   overflow: auto;
