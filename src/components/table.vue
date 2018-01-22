@@ -1,74 +1,28 @@
 <template>
   <div class="table">
-        <el-table
-        v-loading="vLoading"
-        :default-sort = "defaultSort"
-        :border = "border"
-        :header-row-class-name="headerowClassName"
-        :highlight-current-row="highlightCurrentRow"
-        :ref="ref"
-        :data="tableData"
-        :tooltip-effect="tooltipEffect"
-        :style="style"
-        @selection-change="handleSelectionChange">
-          <el-table-column
-            type="selection"
-            width="40">
-          </el-table-column>
-          <el-table-column
-            type="index"
-            label="序号"
-            width="50">
-          </el-table-column>
-           <el-table-column
-          prop="username"
-          label="用户名"
-          show-overflow-tooltip>
-          </el-table-column>
-           <el-table-column
-          prop="nickname"
-          label="用户昵称"
-          width="150"
-          show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-           width="100"
-          prop="isAdmin"
-          label="是否管理员"
-          show-overflow-tooltip>
-          </el-table-column>
-          <el-table-column
-            prop="createTime"
-            label="创建日期"
-            width="105"
-            sortable
-            >
-          </el-table-column>
-          <el-table-column
-            prop="status"
-            label="状态"
-            width="50">
-          </el-table-column>
-          <el-table-column 
-            width="180"
-            label="操作">
-            <template slot-scope="scope">
-              <el-button
-                size="mini"
-                type="text"
-                @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-              <el-button
-                size="mini"
-                type="text"
-                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-              <el-button
-                size="mini"
-                type="text"
-                @click="setOrUnsetAdmin(scope.$index, scope.row)">{{ scope.row.isAdmin === '是' ? '取消管理员' : '设为管理员'}}</el-button>
-            </template>   
-          </el-table-column>
-        </el-table>
-    </div>
+    <el-table
+    v-loading="vLoading"
+    :default-sort = "defaultSort"
+    :border = "border"
+    :header-row-class-name="headerowClassName"
+    :highlight-current-row="highlightCurrentRow"
+    :ref="ref"
+    :data="tableData"
+    :tooltip-effect="tooltipEffect"
+    :style="style"
+    @selection-change="handleSelectionChange">
+      <template v-for="item in columnItems" >
+        <el-table-column v-if="item.label !== '操作'" :sortable="item.sortable" :show-overflow-tooltip="item.show-overflow-tooltip" :type="item.type" :prop="item.prop" :width="item.width" :label="item.label" :key="item.id">
+        </el-table-column>
+        <el-table-column v-else :label="item.label" :width="item.width" :key="item.id">
+            <template slot-scope="scope" v-for="operation in item.operatins">
+              <el-button v-if="operation.custom" :size="operation.size" :type="operation.btnType" @click="handleEvent(operation.type, scope.$index, scope.row)"  :key="operation.key">{{operation.custom.value}}</el-button>
+              <el-button v-else :size="operation.size" :type="operation.btnType" @click="handleEvent(operation.type, scope.$index, scope.row)"  :key="operation.key">{{operation.btnName}}</el-button>
+            </template>
+        </el-table-column>
+      </template>
+    </el-table>
+  </div>
 </template>
 <script>
 export default {
