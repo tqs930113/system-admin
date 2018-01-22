@@ -10,7 +10,7 @@
           <div class="register-info left">
             <template>
               <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="用户注册" name="first">
+                <el-tab-pane label="用户注册" name="first" class="user-register">
                   <el-input autofocus v-model="username" required type="text" class='input' placeholder="请输入用户名"
                   clearable>
                   <i slot="prefix" class="el-input__icon iconfont icon-xingmingyonghumingnicheng"></i>
@@ -19,8 +19,20 @@
                   clearable>
                   <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
                   </el-input>
+                   <el-input v-model="confirmPassword" type="text"  class='input'  placeholder="请再次输入用户密码"
+                  clearable>
+                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                  </el-input>
+                  <!-- 图片验证码 -->
+                  <div class="captcha-img-box clear">
+                    <el-input v-model="captchaImg" required type="text" class='captcha-img-input input' placeholder="请输入右侧的验证码"
+                     clearable>
+                    <i slot="prefix" class="el-input__icon iconfont icon-yanzhengma"></i>
+                    </el-input>
+                    <el-button type="success" class="captcha-img">
+                    </el-button>
+                  </div>
                   <div class="form-group">
-                      <el-button class="forget" type="text">忘记密码？</el-button>
                       <el-button type="success" @click="register" class="register-btn">登 录</el-button>
                   </div>
                 </el-tab-pane>
@@ -55,6 +67,10 @@
                   <el-input autofocus v-model="email" required type="text" class='input' placeholder="请输入用户邮箱"
                   clearable>
                   <i slot="prefix" class="el-input__icon iconfont icon-email"></i>
+                  </el-input>
+                  <el-input  v-model="username" required type="text" class='input' placeholder="请输入用户名"
+                  clearable>
+                  <i slot="prefix" class="el-input__icon iconfont icon-xingmingyonghumingnicheng"></i>
                   </el-input>  
                   <el-input v-model="password" type="text"  class='input'  placeholder="请输入用户密码"
                   clearable>
@@ -208,6 +224,21 @@ export default {
               margin-left: 0;
             }
           }
+          .user-register{
+            .captcha-img-box{
+              .captcha-img-input{
+                width: 55%;
+                float: left;
+              }
+              .captcha-img{
+                width: 35%;
+                margin: 10px 0;
+                height: 40px;
+                background-color:white;
+              }
+            }
+          }
+          
           .phone{
             .captcha-dynamic-box{
               .captcha-dynamic-input{
