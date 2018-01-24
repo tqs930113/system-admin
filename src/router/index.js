@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '../pages/login'
+import login from '../pages/login_old'
 import home from '../components/home'
 import index from '../pages/index'
 import userLogin from '../pages/userLogin'
 import register from '../pages/register'
+import forgetPwd from '../pages/forgetPwd'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+    },
+    {
+      path: '/forgetPwd',
+      name: 'forgetPwd',
+      component: forgetPwd
     },
     {
       path: '/home',

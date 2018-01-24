@@ -20,7 +20,7 @@
                   <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
                   </el-input>
                   <div class="form-group">
-                      <el-button class="forget" type="text">忘记密码？</el-button>
+                      <el-button class="forget" @click="forgetPwd" type="text">忘记密码？</el-button>
                       <el-button type="success" @click="login" class="login-btn">登 录</el-button>
                   </div>
                 </el-tab-pane>
@@ -62,7 +62,8 @@
                   <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
                   </el-input>
                   <div class="form-group">
-                      <el-button class="forget" type="text">忘记密码？</el-button>
+                      <el-button @click="forgetPwd"
+                      class="forget" type="text">忘记密码？</el-button>
                       <el-button type="success" @click="login" class="login-btn">登 录</el-button>
                   </div>
                 </el-tab-pane>
@@ -119,6 +120,10 @@ export default {
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    forgetPwd () {
+      var url = '/forgetPwd'
+      this.$router.push(url)
     },
     login () {
       var params = {}
