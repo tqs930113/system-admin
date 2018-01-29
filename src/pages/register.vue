@@ -9,80 +9,116 @@
       <div class="register-container clear">
           <div class="register-info left">
             <template>
-              <el-tabs v-model="activeName" @tab-click="handleClick">
+              <el-tabs v-model="activeName" >
                 <el-tab-pane label="用户注册" name="first" class="user-register">
-                  <el-input autofocus v-model="username" required type="text" class='input' placeholder="请输入用户名"
+                  <el-form :model="userForm" status-icon :rules="userRules" ref="userForm"  >
+                    <el-form-item label="" prop="username">
+                      <el-input autofocus v-model="userForm.username"  type="text" class='input' placeholder="请输入用户名"
                   clearable>
-                  <i slot="prefix" class="el-input__icon iconfont icon-xingmingyonghumingnicheng"></i>
-                  </el-input>  
-                  <el-input v-model="password" type="text"  class='input'  placeholder="请输入用户密码"
+                       <i slot="prefix" class="el-input__icon iconfont icon-xingmingyonghumingnicheng"></i>
+                      </el-input> 
+                    </el-form-item>
+                    <el-form-item label="" prop="password">
+                      <el-input v-model="userForm.password" type="password"  class='input'  placeholder="请输入用户密码"
                   clearable>
-                  <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-                  </el-input>
-                   <el-input v-model="confirmPassword" type="text"  class='input'  placeholder="请再次输入用户密码"
+                       <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item label="" prop="confirmPassword">
+                      <el-input v-model="userForm.confirmPassword" type="password"  class='input'  placeholder="请再次输入用户密码"
                   clearable>
-                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-                  </el-input>
-                  <!-- 图片验证码 -->
-                  <div class="captcha-img-box clear">
-                    <el-input v-model="captchaImg" required type="text" class='captcha-img-input input' placeholder="请输入右侧的验证码"
-                     clearable>
-                    <i slot="prefix" class="el-input__icon iconfont icon-yanzhengma"></i>
-                    </el-input>
-                    <el-button type="success" class="captcha-img">
-                    </el-button>
-                  </div>
-                  <div class="form-group">
-                      <el-button type="success" @click="register" class="register-btn">登 录</el-button>
-                  </div>
+                        <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                      </el-input>
+                    </el-form-item>
+                    <!-- 图片验证码 -->
+                    <div class="captcha-img-box clear">
+                      <el-form-item label="" prop="captchaImg">
+                        <el-input v-model="userForm.captchaImg" required type="text" class='captcha-img-input input' placeholder="请输入右侧的验证码"
+                        clearable>
+                        <i slot="prefix" class="el-input__icon iconfont icon-yanzhengma"></i>
+                        </el-input>
+                        <el-button type="success" class="captcha-img">
+                        </el-button>
+                      </el-form-item>
+                    </div>
+                    <div class="form-group">
+                      <el-form-item>
+                        <el-button type="success" @click="register('userForm')" class="register-btn">登 录</el-button>
+                      </el-form-item>
+                    </div>
+                  </el-form>
                 </el-tab-pane>
                 <el-tab-pane label="手机快速注册" name="second" class="phone">
-                  <el-input autofocus v-model="userPhone" required type="text" class='input' placeholder="请输入注册手机号"
-                  clearable>
-                  <i slot="prefix" class="el-input__icon iconfont icon-shouji"></i>
-                  </el-input>
-                  <el-input v-model="password" type="text"  class='input'  placeholder="请输入用户密码"
-                  clearable>
-                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-                  </el-input>
-                  <el-input v-model="confirmPassword" type="text"  class='input'  placeholder="请再次输入用户密码"
-                  clearable>
-                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-                  </el-input>
-                  <!-- 动态验证码 -->
-                  <div class="captcha-dynamic-box">
-                    <el-input v-model="captchaDynamic" required type="text" class='captcha-dynamic-input input' placeholder="请输入手机验证码"
-                    clearable>
-                    <i slot="prefix" class="el-input__icon iconfont icon-iconfontmima1"></i>
-                    </el-input>
-                    <el-button type="success" class="captcha-dynamic">
-                      获取验证码
-                    </el-button>
-                  </div>
-                  <div class="form-group">
-                    <el-button type="success" @click="register" class="register-btn">登 录</el-button>
-                  </div>
+                  <el-form :model="phoneForm" status-icon :rules="phoneRules" ref="phoneForm"  >
+                    <el-form-item prop="userPhone">
+                      <el-input autofocus v-model.number="phoneForm.userPhone"  type="text" class='input' placeholder="请输入注册手机号"
+                      clearable>
+                      <i slot="prefix" class="el-input__icon iconfont icon-shouji"></i>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                      <el-input v-model="phoneForm.password" type="password"  class='input'  placeholder="请输入用户密码"
+                      clearable>
+                        <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item prop="confirmPassword">
+                      <el-input v-model="phoneForm.confirmPassword" type="password"  class='input'  placeholder="请再次输入用户密码"
+                      clearable>
+                        <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                      </el-input>
+                    </el-form-item>
+                    <!-- 动态验证码 -->
+                    <div class="captcha-dynamic-box">
+                      <el-form-item prop="captchaDynamic">
+                        <el-input v-model="phoneForm.captchaDynamic"  type="text" class='captcha-dynamic-input input' placeholder="请输入手机验证码"
+                        clearable>
+                        <i slot="prefix" class="el-input__icon iconfont icon-iconfontmima1"></i>
+                        </el-input>
+                        <el-button type="success" class="captcha-dynamic">
+                          获取验证码
+                        </el-button>
+                      </el-form-item>
+                    </div>
+                    <div class="form-group">
+                      <el-form-item>
+                       <el-button type="success" @click="register('emailForm')" class="register-btn">注 册</el-button>
+                      </el-form-item>
+                    </div>
+                  </el-form>
                 </el-tab-pane>
                 <el-tab-pane label="邮箱快速注册" name="third">
-                  <el-input autofocus v-model="email" required type="text" class='input' placeholder="请输入用户邮箱"
-                  clearable>
-                  <i slot="prefix" class="el-input__icon iconfont icon-email"></i>
-                  </el-input>
-                  <el-input  v-model="username" required type="text" class='input' placeholder="请输入用户名"
-                  clearable>
-                  <i slot="prefix" class="el-input__icon iconfont icon-xingmingyonghumingnicheng"></i>
-                  </el-input>  
-                  <el-input v-model="password" type="text"  class='input'  placeholder="请输入用户密码"
-                  clearable>
-                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-                  </el-input>
-                  <el-input v-model="confirmPassword" type="text"  class='input'  placeholder="请再次输入用户密码"
-                  clearable>
-                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-                  </el-input>
-                  <div class="form-group">
-                      <el-button type="success" @click="register" class="register-btn">登 录</el-button>
-                  </div>
+                  <el-form :model="emailForm" status-icon :rules="emailRules" ref="emailForm"  >
+                    <el-form-item prop="email">
+                      <el-input autofocus v-model="emailForm.email"  type="email" class='input' placeholder="请输入用户邮箱"
+                      clearable>
+                      <i slot="prefix" class="el-input__icon iconfont icon-email"></i>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item prop="username">
+                      <el-input  v-model="emailForm.username" required type="text" class='input' placeholder="请输入用户名"
+                      clearable>
+                      <i slot="prefix" class="el-input__icon iconfont icon-xingmingyonghumingnicheng"></i>
+                      </el-input>  
+                    </el-form-item>
+                    <el-form-item prop="password">
+                      <el-input v-model="emailForm.password" type="password"  class='input'  placeholder="请输入用户密码"
+                      clearable>
+                        <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item prop="confirmPassword">
+                      <el-input v-model="emailForm.confirmPassword" type="password"  class='input'  placeholder="请再次输入用户密码"
+                      clearable>
+                        <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                      </el-input>
+                    </el-form-item>
+                    <div class="form-group">
+                      <el-form-item>
+                        <el-button type="success" @click="register('emailForm')" class="register-btn">注 册</el-button>
+                      </el-form-item>
+                    </div>
+                  </el-form>
                 </el-tab-pane>
               </el-tabs>
             </template>
@@ -114,21 +150,158 @@
 </template>
 <script>
 import vFooter from '../components/footer'
+import systemConfig from '../assets/js/systemConfig'
+import API from '../assets/js/API'
+const api = new API()
 export default {
   data () {
+    var userValidateConfirmPassword = (rule, value, callback) => {
+      if (value !== this.userForm.password) {
+        callback(new Error('两次输入的密码不一致'))
+      } else {
+        callback()
+      }
+    }
+    var phoneValidateConfirmPassword = (rule, value, callback) => {
+      if (value !== this.phoneForm.password) {
+        callback(new Error('两次输入的密码不一致'))
+      } else {
+        callback()
+      }
+    }
+    var emailValidateConfirmPassword = (rule, value, callback) => {
+      if (value !== this.phoneForm.password) {
+        callback(new Error('两次输入的密码不一致'))
+      } else {
+        callback()
+      }
+    }
+    var checkUserName = (rule, value, callback) => {
+      var params = {}
+      params.url = `${systemConfig.requestUrlConfig.register.checkUserName}?username=${value}`
+      api.get(params)
+      .then((res) => {
+        if (api.validateResSuccess(res)) {
+          if (res.data.datas.checked) {
+            // 用户名唯一性验证通过
+            callback()
+          } else {
+            // 用户名唯一性验证失败
+            callback(new Error(systemConfig.tips.userInfo.checkUserNameError))
+          }
+        } else {
+          // 用户名唯一性验证失败
+          callback(new Error(systemConfig.tips.userInfo.checkUserNameError))
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+    // var checkEmail = (rule, value, callback) => {
+    //   // 验证邮箱唯一性
+    //   var params = {}
+    //   params.url = `${systemConfig.requestUrlConfig.register.checkEmail}?email=${value}`
+    //   api.get(params)
+    //   .then((res) => {
+    //     if (api.validateResSuccess(res)) {
+    //       if (res.data.datas.checked) {
+    //         // 邮箱唯一性验证通过
+    //         callback()
+    //       } else {
+    //         // 邮箱唯一性验证失败
+    //         callback(new Error(systemConfig.tips.userInfo.checkEmailError))
+    //       }
+    //     } else {
+    //       // 邮箱唯一性验证失败
+    //       callback(new Error(systemConfig.tips.userInfo.checkEmailError))
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // }
     return {
       activeName: 'first',
-      username: '',
-      email: '',
-      userPhone: '',
-      password: '',
-      // 确认密码
-      confirmPassword: '',
-      // 图片验证码
-      captchaImg: '',
+      // 用户普通注册表单
+      userForm: {
+        username: '',
+        password: '',
+        confirmPassword: '',
+        // 图片验证码
+        captchaImg: ''
+      },
+      // 用户普通注册验证规则
+      userRules: {
+        username: [
+          { required: true, message: '请输入登录用户名', trigger: 'blur' },
+          { max: 12, message: '长度最长12个字符', trigger: 'blur' }
+          // {validator: checkUserName, trigger: 'blur'}
+        ],
+        password: [
+          { required: true, message: '请输入用户登录密码', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        confirmPassword: [
+          {required: true, message: '请再次输入用户登录密码', trigger: 'blur'},
+          {validator: userValidateConfirmPassword, trigger: 'blur'}
+        ],
+        captchaImg: [
+          {required: true, message: '请输入图片验证码', trigger: 'blur'}
+        ]
+      },
+      phoneForm: {
+        userPhone: '',
+        password: '',
+        confirmPassword: '',
       // 手机动态验证码
-      captchaDynamic: '',
-      redirectUrl: ''
+        captchaDynamic: ''
+      },
+      // 手机快速注册验证规则
+      phoneRules: {
+        userPhone: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { max: 11, message: '长度为11个字符', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入用户登录密码', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        confirmPassword: [
+          {required: true, message: '请再次输入用户登录密码', trigger: 'blur'},
+          {validator: phoneValidateConfirmPassword, trigger: 'blur'}
+        ],
+        captchaDynamic: [
+          {required: true, message: '请输入手机验证码', trigger: 'blur'}
+        ]
+      },
+      // 邮箱快速注册表单
+      emailForm: {
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: ''
+      },
+      // 邮箱快速注册验证规则
+      emailRules: {
+        email: [
+          {required: true, message: '请输入邮箱', trigger: 'blur'}
+          // {validator: checkEmail, trigger: 'blur'}
+        ],
+        username: [
+          { required: true, message: '请输入登录用户名', trigger: 'blur' },
+          { max: 12, message: '长度不超过12个字符', trigger: 'blur' },
+          {validator: checkUserName, trigger: 'blur'}
+        ],
+        password: [
+          { required: true, message: '请输入用户登录密码', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        confirmPassword: [
+          {required: true, message: '请再次输入用户登录密码', trigger: 'blur'},
+          {validator: emailValidateConfirmPassword, trigger: 'blur'}
+        ]
+      }
     }
   },
   watch: {
@@ -137,13 +310,17 @@ export default {
     }
   },
   methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
-    },
-    register () {
-      var params = {}
-      params.url = '/index'
-      this.$router.push(params.url)
+    register (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          var params = {}
+          params.url = '/index'
+          this.$router.push(params.url)
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   },
   components: {

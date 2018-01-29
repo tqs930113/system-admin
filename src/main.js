@@ -17,11 +17,16 @@ import './assets/css/index.css'
 import './assets/css/generalCSS/green.css'
 // 引入jQuery框架
 import jQuery from 'jquery'
-// import Waves from '/node_modules/node-waves/dist/waves.min.js'
+import 'node-waves/dist/waves.min.css'
+
+import axios from 'axios'
+
+Vue.prototype.$axios = axios
+
 Vue.use(ElementUI)
+// Vue.use(Waves)
 Vue.config.productionTip = false
 Vue.prototype.$jQuery = jQuery
-// Waves.attach('.wave-btns', ['waves-button', 'waves-float'])
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

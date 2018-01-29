@@ -11,8 +11,8 @@
     <div class="header-right">
       <div class="wrap">
         <div class="navs-left">
-          <div @click="toggleNavStatus" class="nav-btn waves-btns" id="nav-btn">
-            <i :class=" navNavItemsShow ? 'iconfont ' + navBtnIcons[1] : 'iconfont ' + navBtnIcons[0]"></i>
+          <div @click="toggleNavStatus" class="nav-btn  " id="nav-btn">
+            <i class="waves-effect waves-button" :class=" navNavItemsShow ? 'iconfont ' + navBtnIcons[1] : 'iconfont ' + navBtnIcons[0]"></i>
           </div>
           <div  @click="slideLeft"  class="nav-prev bg-color nav-slide-hover" id="nav-prev">
             <i class="iconfont icon-zuo"></i>
@@ -45,16 +45,17 @@
                   </span>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="personalInfo">
-                      <i class="iconfont icon-geren3"></i> 个人信息</el-dropdown-item>
+                        <i class="iconfont icon-geren3"></i> 个人信息
+                    </el-dropdown-item>
                     <el-dropdown-item command="personalSetting" disabled>
                       <i class="iconfont icon-yinsi"></i> 隐私管理</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </div>
             </div>
-            <router-link tag="div" to="./index" class="home left">
-              <i class="iconfont icon-home"></i>
-            </router-link>
+              <router-link tag="div" to="./index" class="home left">
+                <i class="waves-effect waves-button iconfont icon-home "></i>
+              </router-link>
             <div class="settings left">
               <el-dropdown @command="handleCommand" placement="bottom">
                 <span class="el-dropdown-link">
@@ -80,6 +81,8 @@
 </template>
 <script >
 import jQuery from 'jquery'
+import Waves from 'node-waves/dist/waves.min.js'
+
 export default {
   mounted () {
     var that = this
@@ -93,6 +96,9 @@ export default {
         }, 500)
       }
     }
+
+    // Waves.attach('.flat-box')
+    Waves.displayEffect()
   },
   data () {
     return {
@@ -146,6 +152,9 @@ export default {
           break
         case 'fullScreen':
           this.launchFullscreen(document.documentElement)
+          break
+        case 'personalInfo':
+          this.$router.push('/userInfo')
           break
       }
     },

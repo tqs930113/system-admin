@@ -17,6 +17,12 @@ class API {
   delete (param) {
     return axios.delete(param.url, config)
   }
+  validateResSuccess (res) {
+    if (res.data.code === '000000') {
+      return true
+    }
+    return false
+  }
   reqSuccess (obj, msg) {
     // 请求成功的提示框
     obj.$message({

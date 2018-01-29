@@ -13,6 +13,7 @@
       text-align:center;
       font-weight: bold;
       color: #00a65a;
+      z-index:1;
     }
 </style>
 

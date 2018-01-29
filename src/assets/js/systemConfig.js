@@ -28,6 +28,10 @@ export default {
     statisticalAnalysis: {
       initTableErr: '初始化数据列表失败',
       initVoteErr: '加载投票信息失败'
+    },
+    userInfo: {
+      checkUserNameError: '用户名不唯一',
+      checkEmailError: '用户邮箱不唯一'
     }
   },
   // 系统请求地址的配置项
@@ -38,21 +42,10 @@ export default {
     login: {
       checkUserValidation: '/colife/activity/authority'
     },
-    userManagerRequestUrlConfig: {
-      list: '/colife/activity/admin/list/',
-      delete: '/colife/activity/admin/delete/',
-      add: '/colife/activity/admin/add/',
-      edit: '/colife/activity/admin/update/',
-      public: '/colife/activity/admin/open/',
-      unpublic: '/colife/activity/admin/close/',
-      setAdmin: '/colife/activity/admin/{objId}/setAdmin',
-      cancelAdmin: '/colife/activity/admin/{objId}/cancleAdmin'
-    },
-    statisticalAnalysis: {
-      list: '/colife/activity/vote/{objId}/voteItems'
-    },
-    voteManager: {
-      info: '/colife/activity/vote/{objId}'
+    register: {
+      checkUserName: '/colife/ucenter/member/check/username',
+      checkEmail: '/colife/ucenter/member/check/email',
+      checkPhone: '/colife/ucenter/member/check/phone'
     }
   },
   // 数字转换成对应文字意思配置

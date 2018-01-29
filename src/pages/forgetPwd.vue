@@ -17,45 +17,63 @@
           </div>
           <div class="forget-pwd-info">
             <div label="手机号方式找回密码" class="phone" v-show="phoneStepActive === 0">
-              <el-input autofocus v-model="userPhone" required type="text" class='input' placeholder="请输入手机号"
-              clearable>
-              <i slot="prefix" class="el-input__icon iconfont icon-shouji"></i>
-              </el-input>
-              <!-- 图片验证码 -->
-              <div class="captcha-img-box clear">
-                <el-input v-model="captchaImg" required type="text" class='captcha-img-input input' placeholder="请输入右侧的验证码"
+              <el-form :model="phoneForm" status-icon :rules="phoneRules" ref="phoneForm"  >
+                <el-form-item prop="userPhone">
+                  <el-input autofocus v-model="phoneForm.userPhone"  type="text" class='input' placeholder="请输入手机号"
                   clearable>
-                <i slot="prefix" class="el-input__icon iconfont icon-yanzhengma"></i>
-                </el-input>
-                <el-button type="success" class="captcha-img">
-                </el-button>
-              </div>
-              <!-- 动态验证码 -->
-              <div class="captcha-dynamic-box">
-                <el-input v-model="captchaDynamic" required type="text" class='captcha-dynamic-input input' placeholder="请输入手机验证码"
-                clearable>
-                <i slot="prefix" class="el-input__icon iconfont icon-iconfontmima1"></i>
-                </el-input>
-                <el-button type="success" class="captcha-dynamic">
-                  获取验证码
-                </el-button>
-              </div>
-              <div class="form-group">
-                <el-button type="success" @click="phoneGetBackPwd" class="forget-pwd-btn">找回密码</el-button>
-              </div>
+                  <i slot="prefix" class="el-input__icon iconfont icon-shouji"></i>
+                  </el-input>
+                </el-form-item>
+                <!-- 图片验证码 -->
+                <div class="captcha-img-box clear">
+                  <el-form-item prop="captchaImg">
+                    <el-input v-model="phoneForm.captchaImg"  type="text" class='captcha-img-input input' placeholder="请输入右侧的验证码"
+                      clearable>
+                    <i slot="prefix" class="el-input__icon iconfont icon-yanzhengma"></i>
+                    </el-input>
+                    <el-button type="success" class="captcha-img">
+                    </el-button>
+                  </el-form-item>
+                </div>
+                <!-- 动态验证码 -->
+                <div class="captcha-dynamic-box">
+                  <el-form-item prop="captchaDynamic">
+                    <el-input v-model="phoneForm.captchaDynamic" required type="text" class='captcha-dynamic-input input' placeholder="请输入手机验证码"
+                    clearable>
+                    <i slot="prefix" class="el-input__icon iconfont icon-iconfontmima1"></i>
+                    </el-input>
+                    <el-button type="success" class="captcha-dynamic">
+                      获取验证码
+                    </el-button>
+                  </el-form-item>
+                </div>
+                <div class="form-group">
+                  <el-form-item >
+                    <el-button type="success" @click="phoneGetBackPwd('phoneForm')" class=" forget-pwd-btn">找回密码</el-button>
+                  </el-form-item>
+                </div>
+              </el-form>
             </div>
             <div label="重置密码" class="phone" v-show="phoneStepActive === 1">
-              <el-input v-model="phonePassword" type="text"  class='input'  placeholder="请输入用户密码"
-              clearable>
-              <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-              </el-input>
-                <el-input v-model="phoneConfirmPassword" type="text"  class='input'  placeholder="请再次输入用户密码"
-              clearable>
-                <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-              </el-input>
-              <div class="form-group">
-                <el-button type="success" @click="phoneResetPwd" class="forget-pwd-btn">重置密码</el-button>
-              </div>
+              <el-form :model="phoneResetPwdForm" status-icon :rules="phoneResetPwdRules" ref="phoneResetPwdForm">
+                <el-form-item prop="phonePassword">
+                  <el-input v-model="phoneResetPwdForm.phonePassword" type="password"  class='input'  placeholder="请输入用户密码"
+                  clearable>
+                  <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                  </el-input>
+                </el-form-item>
+                <el-form-item prop="phoneConfirmPassword">
+                  <el-input v-model="phoneResetPwdForm.phoneConfirmPassword" type="password"  class='input'  placeholder="请再次输入用户密码"
+                clearable>
+                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                  </el-input>
+                </el-form-item>
+                <div class="form-group">
+                  <el-form-item>
+                    <el-button type="success" @click="phoneResetPwd('phoneResetPwdForm')" class=" forget-pwd-btn">重置密码</el-button>
+                  </el-form-item>
+                </div>
+              </el-form>
             </div>
           </div>
       </div>
@@ -69,41 +87,61 @@
           </div>
           <div class="forget-pwd-info">
             <div label="输入邮箱地址"  class="email" v-show="emailStepActive === 0">
-              <el-input autofocus v-model="email" required type="text" class='input' placeholder="请输入注册时使用的邮箱"
-              clearable>
-              <i slot="prefix" class="el-input__icon iconfont icon-shouji"></i>
-              </el-input>
-              <div class="form-group">
-                <el-button type="success" @click="comfirmEmail" class="forget-pwd-btn">找回密码</el-button>
-              </div>
+              <el-form :model="emailForm" status-icon :rules="emailRules" ref="emailForm">
+                <el-form-item prop="email">
+                  <el-input autofocus v-model="emailForm.email"  type="email" class='input' placeholder="请输入注册时使用的邮箱"
+                  clearable>
+                  <i slot="prefix" class="el-input__icon iconfont icon-shouji"></i>
+                  </el-input>
+                </el-form-item>
+                <div class="form-group">
+                  <el-form-item>
+                    <el-button type="success" @click="comfirmEmail('emailForm')" class="forget-pwd-btn">找回密码</el-button>
+                  </el-form-item>
+                </div>
+              </el-form>
             </div>
             <div label="验证邮箱"  class="email" v-show="emailStepActive === 1">
+              <el-form :model="checkEmailForm" ref="checkEmailForm" status-icon :rules="checkEmailRules">
               <!-- 动态验证码 -->
-              <div class="captcha-dynamic-box">
-                <el-input v-model="captchaDynamic" required type="text" class='captcha-dynamic-input input' placeholder="请输入手机验证码"
-                clearable>
-                <i slot="prefix" class="el-input__icon iconfont icon-iconfontmima1"></i>
-                </el-input>
-                <el-button type="success" class="captcha-dynamic">
-                  获取验证码
-                </el-button>
-              </div>
-              <div class="form-group">
-                <el-button type="success" @click="checkEmail" class="forget-pwd-btn">验证邮箱</el-button>
-              </div>
+                <div class="captcha-dynamic-box">
+                  <el-form-item prop="captchaDynamic">
+                    <el-input v-model="checkEmailForm.captchaDynamic" required type="text" class='captcha-dynamic-input input' placeholder="请输入手机验证码"
+                    clearable>
+                      <i slot="prefix" class="el-input__icon iconfont icon-iconfontmima1"></i>
+                    </el-input>
+                    <el-button type="success" class="captcha-dynamic">
+                      获取验证码
+                    </el-button>
+                  </el-form-item>
+                </div>
+                <div class="form-group">
+                  <el-form-item>
+                    <el-button type="success" @click="checkEmail('checkEmailForm')" class="forget-pwd-btn">验证邮箱</el-button>
+                  </el-form-item>
+                </div>
+              </el-form>
             </div>
             <div label="重置密码"  class="email" v-show="emailStepActive === 2">
-              <el-input v-model="phonePassword" type="text"  class='input'  placeholder="请输入用户密码"
-              clearable>
-              <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-              </el-input>
-                <el-input v-model="phoneConfirmPassword" type="text"  class='input'  placeholder="请再次输入用户密码"
-              clearable>
-                <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
-              </el-input>
-              <div class="form-group">
-                <el-button type="success" @click="emailResetPwd" class="forget-pwd-btn">重置密码</el-button>
-              </div>
+              <el-form :model="emailResetPwdForm" status-icon :rules="emailResetPwdRules" ref="emailResetPwdForm">
+                <el-form-item prop="emailPassword">
+                  <el-input v-model="emailResetPwdForm.emailPassword" type="password"  class='input'  placeholder="请输入用户登录密码"
+                  clearable>
+                  <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                  </el-input>
+                </el-form-item>
+                <el-form-item prop="emailConfirmPassword">
+                  <el-input v-model="emailResetPwdForm.emailConfirmPassword" type="password"  class='input'  placeholder="请再次输入用户密码"
+                clearable>
+                    <i slot="prefix" class="el-input__icon iconfont icon-mima"></i>
+                  </el-input>
+                </el-form-item>  
+                <div class="form-group">
+                  <el-form-item >
+                    <el-button type="success" @click="emailResetPwd('emailResetPwdForm')" class=" forget-pwd-btn">重置密码</el-button>
+                  </el-form-item>
+                </div>
+              </el-form>
             </div>
           </div>
       </div>
@@ -115,6 +153,22 @@
 import vFooter from '../components/footer'
 export default {
   data () {
+    var emailValidateConfirmPassword = (rule, value, callback) => {
+      // 检验用邮箱方式重置密码时，两次密码输入是否一致
+      if (value !== this.emailResetPwdForm.emialPassword) {
+        callback(new Error('两次输入的密码不一致'))
+      } else {
+        callback()
+      }
+    }
+    var phoneResetValidateConfirmPassword = (rule, value, callback) => {
+      // 检验用手机找回方式重置密码时，两次密码输入是否一致
+      if (value !== this.phoneResetPwdForm.phonePassword) {
+        callback(new Error('两次输入的密码不一致'))
+      } else {
+        callback()
+      }
+    }
     return {
       // 邮箱找回密码步骤导航当前步数
       emailStepActive: 0,
@@ -131,7 +185,77 @@ export default {
       // 图片验证码
       captchaImg: '',
       // 手机动态验证码
-      captchaDynamic: ''
+      captchaDynamic: '',
+      phoneForm: {
+        userPhone: '',
+        captchaImg: '',
+      // 手机动态验证码
+        captchaDynamic: ''
+      },
+      // 手机方式找回密码验证规则
+      phoneRules: {
+        userPhone: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { max: 11, message: '长度为11个字符', trigger: 'blur' }
+        ],
+        captchaImg: [
+          {required: true, message: '请输入图片验证码', trigger: 'blur'}
+        ],
+        captchaDynamic: [
+          {required: true, message: '请输入手机验证码', trigger: 'blur'}
+        ]
+      },
+      // 手机验证重置密码表单
+      phoneResetPwdForm: {
+        phonePassword: '',
+        phoneConfirmPassword: ''
+      },
+      phoneResetPwdRules: {
+        phonePassword: [
+          { required: true, message: '请输入用户登录密码', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        phoneConfirmPassword: [
+          {required: true, message: '请再次输入用户登录密码', trigger: 'blur'},
+          {validator: phoneResetValidateConfirmPassword, trigger: 'blur'}
+        ]
+      },
+      // 邮箱找回确认用户邮箱表单
+      emailForm: {
+        email: ''
+      },
+      // 邮箱找回确认用户邮箱表单验证规则
+      emailRules: {
+        email: [
+          {required: true, message: '请输入邮箱', trigger: 'blur'}
+        ]
+      },
+       // 邮箱有效性验证表单
+      checkEmailForm: {
+        // 邮箱动态验证码
+        captchaDynamic: ''
+      },
+      // 邮箱有效性验证规则
+      checkEmailRules: {
+        captchaDynamic: [
+          {required: true, message: '请输入邮箱验证码', trigger: 'blur'}
+        ]
+      },
+      // 手机验证重置密码表单
+      emailResetPwdForm: {
+        emialPassword: '',
+        emailConfirmPassword: ''
+      },
+      emailResetPwdRules: {
+        emialPassword: [
+          { required: true, message: '请输入用户登录密码', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        emailConfirmPassword: [
+          {required: true, message: '请再次输入用户登录密码', trigger: 'blur'},
+          {validator: emailValidateConfirmPassword, trigger: 'blur'}
+        ]
+      }
     }
   },
   watch: {
@@ -140,25 +264,65 @@ export default {
     }
   },
   methods: {
-    phoneGetBackPwd () {
-      // 手机找回方式下设置步骤状态为重置密码
-      this.phoneStepActive = 1
+    phoneGetBackPwd (formName) {
+      var that = this
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 手机找回方式下设置步骤状态为重置密码
+          that.phoneStepActive = 1
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
-    phoneResetPwd () {
-      // 手机找回方式下重置账号密码
-      this.$router.push('/userLogin')
+    phoneResetPwd (formName) {
+      var that = this
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 手机找回方式下重置账号密码
+          that.$router.push('/userLogin')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
-    emailResetPwd () {
-      // 邮箱找回方式下重置账号密码
-      this.$router.push('/userLogin')
+    emailResetPwd (formName) {
+      var that = this
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 邮箱找回方式下重置账号密码
+          that.$router.push('/userLogin')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
-    comfirmEmail () {
-      // 确认邮箱存在
-      this.emailStepActive = 1
+    comfirmEmail (formName) {
+      var that = this
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 确认邮箱存在
+          that.emailStepActive = 1
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
-    checkEmail () {
-      // 检验邮箱合法
-      this.emailStepActive = 2
+    checkEmail (formName) {
+      var that = this
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+           // 检验邮箱合法
+          that.emailStepActive = 2
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   },
   components: {

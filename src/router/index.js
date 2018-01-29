@@ -6,6 +6,7 @@ import index from '../pages/index'
 import userLogin from '../pages/userLogin'
 import register from '../pages/register'
 import forgetPwd from '../pages/forgetPwd'
+import userInfo from '../pages/userInfo'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
         path: '/index',
         name: 'index',
         component: index
+      },
+      {
+        path: '/userInfo',
+        name: 'userInfo',
+        component: userInfo
       }]
     }
   ]
