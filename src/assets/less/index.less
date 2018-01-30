@@ -19,6 +19,10 @@
     }
 }
 // 修改element组件样式
+.el-tabs__content{
+    // 修改tabs卡片内容横向内容被隐藏
+    overflow: scroll;
+}
 .el-form-item{
     margin-bottom: 0;
 }
@@ -35,6 +39,19 @@ html {
         min-width: 900px;
         overflow: scroll;
         color:#555;
+        .left{
+        float: left;
+        }
+        .right{
+            float: right;
+        }
+        .clear::after{
+        content: ' ';
+        display: block;
+        clear: both;
+        zoom: 1;
+        }
+
         .header {
             .el-dropdown {
                 // 设置下拉框样式

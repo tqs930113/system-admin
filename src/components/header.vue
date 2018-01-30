@@ -44,7 +44,7 @@
                     admin
                   </span>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="personalInfo">
+                    <el-dropdown-item  command="personalInfo">
                         <i class="iconfont icon-geren3"></i> 个人信息
                     </el-dropdown-item>
                     <el-dropdown-item command="personalSetting" disabled>
@@ -146,6 +146,7 @@ export default {
       }
     },
     handleCommand (command) {
+      // 菜单下拉框根据command值处理时间
       switch (command) {
         case 'quit':
           this.$router.push('/')

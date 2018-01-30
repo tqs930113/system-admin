@@ -155,7 +155,7 @@ export default {
   data () {
     var emailValidateConfirmPassword = (rule, value, callback) => {
       // 检验用邮箱方式重置密码时，两次密码输入是否一致
-      if (value !== this.emailResetPwdForm.emialPassword) {
+      if (value !== this.emailResetPwdForm.emailPassword) {
         callback(new Error('两次输入的密码不一致'))
       } else {
         callback()
@@ -243,11 +243,11 @@ export default {
       },
       // 手机验证重置密码表单
       emailResetPwdForm: {
-        emialPassword: '',
+        emailPassword: '',
         emailConfirmPassword: ''
       },
       emailResetPwdRules: {
-        emialPassword: [
+        emailPassword: [
           { required: true, message: '请输入用户登录密码', trigger: 'blur' },
           { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],

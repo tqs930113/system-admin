@@ -213,18 +213,6 @@ export default {
 </script>
 <style lang="less" scoped>
 @green:#00a65a;
-  .left{
-    float: left;
-  }
-  .right{
-    float: right;
-  }
-  .clear::after{
-    content: ' ';
-    display: block;
-    clear: both;
-    zoom: 1;
-  }
   .login{
     background-color: #f8f9fc;
     width: 100%;
@@ -352,7 +340,6 @@ export default {
         }
       }
     }
-
     .copyright{
       position: absolute;
       width: 100%;

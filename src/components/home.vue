@@ -3,7 +3,9 @@
     <v-header @toggleMenuStatus="toggleMenuStatus" class="top"></v-header>
     <div class="wrap">
       <v-aside id="aside" class="left open"></v-aside>
-      <router-view id="view" class=" right content"></router-view>
+      <div class="right content" id="view">
+        <router-view  ></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -13,12 +15,19 @@ import vHeader from './header'
 import vAside from './aside'
 export default {
   name: 'home',
+  data () {
+    return {
+      menuStatus: 'open'
+    }
+  },
   methods: {
     toggleMenuStatus (val) {
       // val记录需要将Menu设置为什么状态
       var widthVal = (val === 'close' ? 0 : 20)
       var aside = jQuery('#aside')
       var view = jQuery('#view')
+      // 记录此时的侧边menu的打开状态
+      this.menuStatus = val
       aside.css({
         'width': widthVal + '%',
         'transition': 'all 0.5s'
