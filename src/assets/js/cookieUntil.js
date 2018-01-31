@@ -33,7 +33,7 @@ export default {
   },
   delete: function (name, path, domain, secure) {
     // 删除cookie数据，既是修改expires时间设置cookie过期
-    this.set(name, '', new Date(0), domain, path)
+    this.set(name, '', new Date(0), domain, path, secure)
   },
   setCookieDate: function (day) {
     // 设置cookie有效时间
